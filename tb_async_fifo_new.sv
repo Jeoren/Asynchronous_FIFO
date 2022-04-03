@@ -3,9 +3,9 @@
 // Company: 
 // Engineer: 
 // 
-// Create Date: 2021/08/14 10:30:49
+// Create Date: 2022/4/2 10:30:49
 // Design Name: 
-// Module Name: syn_fifo_tb
+// Module Name: async_fifo_tb
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
@@ -33,53 +33,24 @@ module tb_async_fifo;
     reg                               rd_en;
     wire          [15:0]              data_out;
     wire                              empty;
-
-    /*async_fifo async_fifo_inst
-    (
-          .rst_n      (rst_n),
-                                
-          .wr_clk     (wr_clk),
-          .wr_en      (wr_en),
-          .data_in    (data_in),
-          .fifo_full  (full),
-                
-          .rd_clk     (rd_clk),
-          .rd_en      (rd_en),
-          .data_out   (data_out),
-          .fifo_empty (empty)
-    );*/
-
-    /*async_fifo async_fifo_inst#(
-        .WIDTH (16 ) ,
-        .DEPTH (256)
-    )(
-        .wclk  (wr_clk  ) , 
-        .rclk  (rd_clk  ) ,   
-        .wrstn (rst_n   ) ,
-        .rrstn (rst_n   ) ,
-        .winc  (wr_en   ) ,
-        .rinc  (rd_en   ) ,
-        .wdata (data_in ) ,
-        .wfull (full    ) ,
-        .rempty(empty   ) ,
-        .rdat  (data_out)
-    );*/
-
-        ASYNC_FIFO #(
-            .RAM_WIDTH(RAM_WIDTH),
-            .RAM_DEPTH(RAM_DEPTH),
-        ) async_fifo_inst (
-            .rst_n      (rst_n  ),
-            .write_clk  (wr_clk ),
-            .write_en   (wr_en  ),
-            .write_data (data_in),
-            .read_clk   (rd_clk ),
-            .read_en    (rd_en  ),
-            .read_data  (data_out),
-            .fifo_empty (empty  ),
-            .fifo_full  (full   )
-        );
-
+    
+    parameter  RAM_WIDTH = 8;
+    parameter  RAM_DEPTH = 256;
+    
+    ASYNC_FIFO #(
+        .RAM_WIDTH(RAM_WIDTH),
+        .RAM_DEPTH(RAM_DEPTH),
+    ) async_fifo_inst (
+        .rst_n      (rst_n  ),
+        .write_clk  (wr_clk ),
+        .write_en   (wr_en  ),
+        .write_data (data_in),
+        .read_clk   (rd_clk ),
+        .read_en    (rd_en  ),
+        .read_data  (data_out),
+        .fifo_empty (empty  ),
+        .fifo_full  (full   )
+    );
     
     initial wr_clk = 0;
     always#10 wr_clk = ~wr_clk;
