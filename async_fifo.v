@@ -1,4 +1,4 @@
-//async.fifo by Shaoxiong on 2022_4_2
+//async.fifo by Jeroen on 2022_4_2
 //fifo motto: never write when its full
 //            never read  when its empty
 
